@@ -55,27 +55,40 @@
 		  font-weight: bold;
 		}
     </style>
-	
+	<link id="main-css" rel="stylesheet" href="https://dev.drifted.com/wp-content/themes/drifted/game-loader/game-loader.css" onerror="loadFallbackCSS()">
+    <script>
+        function loadFallbackCSS() {
+            var fallback = document.createElement('link');
+            fallback.rel = 'stylesheet';
+            fallback.href = 'https://www.drifted.com/wp-content/themes/drifted/game-loader/game-loader.css';
+            document.head.appendChild(fallback);
+        }
+    </script>
 
 </head> 
  
 <body> 
 	<div id="fb-root"></div>
-	
-	<!-- The canvas must be inside a div called c2canvasdiv -->
-	<div id="c2canvasdiv">
-	
-		<!-- The canvas the project will render to.  If you change its ID, don't forget to change the
-		ID the runtime looks for in the jQuery events above (ready() and cr_sizeCanvas()). -->
-		<canvas id="c2canvas" width="1280" height="720">
-			<!-- This text is displayed if the visitor's browser does not support HTML5.
-			You can change it, but it is a good idea to link to a description of a browser
-			and provide some links to download some popular HTML5-compatible browsers. -->
-			<h1>Your browser does not appear to support HTML5.  Try upgrading your browser to the latest version.</h1>
-		</canvas>
-		
-	</div>
-	
+    <div id="gameContainer">
+	    <div id="c2canvasdiv">
+        <!-- The canvas must be inside a div called c2canvasdiv -->
+            <!-- The canvas the project will render to.  If you change its ID, don't forget to change the
+            ID the runtime looks for in the jQuery events above (ready() and cr_sizeCanvas()). -->
+            <canvas id="c2canvas" width="1280" height="720">
+                <!-- This text is displayed if the visitor's browser does not support HTML5.
+                You can change it, but it is a good idea to link to a description of a browser
+                and provide some links to download some popular HTML5-compatible browsers. -->
+                <h1>Your browser does not appear to support HTML5.  Try upgrading your browser to the latest version.</h1>
+            </canvas>
+        </div>
+    </div>
+	<div id="game-footer">
+        <a class="webgl-logo" href="https://www.drifted.com"></a>
+        <a class="bug tooltip" href="https://www.drifted.com/contact/?game-referral=https://www.drifted.com/eggy-car/"></a>
+        <a class="category drifting-games tooltip" href="https://www.drifted.com/car-games/"></a>
+        <a class="fullscreen tooltip" href="#"></a>
+        <a class="title" href="https://www.drifted.com/eggy-car/">Eggy Car</a>
+    </div>
 	<!-- Pages load faster with scripts at the bottom -->
 	
 	<!-- Construct 2 exported games require jQuery. -->
@@ -133,6 +146,16 @@
 				OnRegisterSWError(e);
 			}
 		};
+    </script>
+    <script>
+        var script = document.createElement('script');
+        script.src = 'https://dev.drifted.com/wp-content/themes/drifted/game-loader/game-loader.js';
+        script.onerror = function () {
+          var fallback = document.createElement('script');
+          fallback.src = 'https://www.drifted.com/wp-content/themes/drifted/game-loader/game-loader.js';
+          document.head.appendChild(fallback);
+        };
+        document.head.appendChild(script);
     </script>
 </body> 
 </html> 
