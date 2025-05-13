@@ -53,9 +53,6 @@
 		  src: url(changaone_regular.ttf);
 		  font-weight: bold;
 		}
-		#gameContainer{
-			bottom:0!important;
-		}
     </style>
 	<link id="main-css" rel="stylesheet" href="https://dev.drifted.com/wp-content/themes/drifted/game-loader/game-loader.css" onerror="loadFallbackCSS()">
     <script>
@@ -159,6 +156,7 @@
 		            const parentHost = new URL(referrer).hostname;
 		            if (parentHost.endsWith(allowedDomain)) {
 		                document.getElementById('game-footer')?.style.setProperty('display', 'none', 'important');
+				document.getElementById('gameContainer')?.style.setProperty('bottom', '0', 'important');
 		            }
 		        } else {
 		            console.log("No referrer available.");
