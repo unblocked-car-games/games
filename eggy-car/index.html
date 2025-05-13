@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<meta name="robots" content="noindex, nofollow" />
-	
+
 	<title>Eggy Car</title>
 	<script>
 		/*if (window.self === window.top) {
@@ -15,14 +14,14 @@
 		    window.location.replace('../../../../' + gName + '-game/');
 		}*/
 	</script>
-	
+
 	<!-- Allow fullscreen mode on iOS devices. (These are Apple specific meta tags.) -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 	<link rel="apple-touch-icon" sizes="256x256" href="icon-256.png" />
 	<meta name="HandheldFriendly" content="true" />
-	
+
 	<!-- Chrome for Android web app tags -->
 	<meta name="mobile-web-app-capable" content="yes" />
 	<link rel="shortcut icon" sizes="256x256" href="icon-256.png" />
@@ -55,34 +54,47 @@
 		  font-weight: bold;
 		}
     </style>
-	
+	<link id="main-css" rel="stylesheet" href="https://dev.drifted.com/wp-content/themes/drifted/game-loader/game-loader.css" onerror="loadFallbackCSS()">
+    <script>
+        function loadFallbackCSS() {
+            var fallback = document.createElement('link');
+            fallback.rel = 'stylesheet';
+            fallback.href = 'https://www.drifted.com/wp-content/themes/drifted/game-loader/game-loader.css';
+            document.head.appendChild(fallback);
+        }
+    </script>
 
 </head> 
- 
+
 <body> 
 	<div id="fb-root"></div>
-	
-	<!-- The canvas must be inside a div called c2canvasdiv -->
-	<div id="c2canvasdiv">
-	
-		<!-- The canvas the project will render to.  If you change its ID, don't forget to change the
-		ID the runtime looks for in the jQuery events above (ready() and cr_sizeCanvas()). -->
-		<canvas id="c2canvas" width="1280" height="720">
-			<!-- This text is displayed if the visitor's browser does not support HTML5.
-			You can change it, but it is a good idea to link to a description of a browser
-			and provide some links to download some popular HTML5-compatible browsers. -->
-			<h1>Your browser does not appear to support HTML5.  Try upgrading your browser to the latest version.</h1>
-		</canvas>
-		
-	</div>
-	
+    <div id="gameContainer">
+	    <div id="c2canvasdiv">
+        <!-- The canvas must be inside a div called c2canvasdiv -->
+            <!-- The canvas the project will render to.  If you change its ID, don't forget to change the
+            ID the runtime looks for in the jQuery events above (ready() and cr_sizeCanvas()). -->
+            <canvas id="c2canvas" width="1280" height="720">
+                <!-- This text is displayed if the visitor's browser does not support HTML5.
+                You can change it, but it is a good idea to link to a description of a browser
+                and provide some links to download some popular HTML5-compatible browsers. -->
+                <h1>Your browser does not appear to support HTML5.  Try upgrading your browser to the latest version.</h1>
+            </canvas>
+        </div>
+    </div>
+	<div id="game-footer">
+        <a class="webgl-logo" href="https://www.drifted.com"></a>
+        <a class="bug tooltip" href="https://www.drifted.com/contact/?game-referral=https://www.drifted.com/eggy-car/"></a>
+        <a class="category drifting-games tooltip" href="https://www.drifted.com/car-games/"></a>
+        <a class="fullscreen tooltip" href="https://www.drifted.com/eggy-car/"></a>
+        <a class="title" href="https://www.drifted.com/eggy-car/">Eggy Car</a>
+    </div>
 	<!-- Pages load faster with scripts at the bottom -->
-	
+
 	<!-- Construct 2 exported games require jQuery. -->
 	<script src="jquery-2.1.1.min.js"></script>
 
 
-	
+
     <!-- The runtime script.  You can rename it, but don't forget to rename the reference here as well.
     This file will have been minified and obfuscated if you enabled "Minify script" during export. -->
 	<script src="c2runtime.js"></script>
@@ -94,7 +106,7 @@
 			// Create new runtime using the c2canvas
 			cr_createRuntime("c2canvas");
 		});
-		
+
 		// Pause and resume on page becoming visible/invisible
 		function onVisibilityChanged() {
 			if (document.hidden || document.mozHidden || document.webkitHidden || document.msHidden)
@@ -102,24 +114,24 @@
 			else
 				cr_setSuspended(false);
 		};
-		
+
 		document.addEventListener("visibilitychange", onVisibilityChanged, false);
 		document.addEventListener("mozvisibilitychange", onVisibilityChanged, false);
 		document.addEventListener("webkitvisibilitychange", onVisibilityChanged, false);
 		document.addEventListener("msvisibilitychange", onVisibilityChanged, false);
-		
+
 		function OnRegisterSWError(e)
 		{
 			console.warn("Failed to register service worker: ", e);
 		};
-		
+
 		// Runtime calls this global method when ready to start caching (i.e. after startup).
 		// This registers the service worker which caches resources for offline support.
 		window.C2_RegisterSW = function C2_RegisterSW()
 		{
 			if (!navigator.serviceWorker)
 				return;		// no SW support, ignore call
-			
+
 			try {
 				navigator.serviceWorker.register("sw.js", { scope: "./" })
 				.then(function (reg)
@@ -133,6 +145,22 @@
 				OnRegisterSWError(e);
 			}
 		};
+
+    </script>
+    <script>
+        try {
+            if (window !== window.parent) {
+                // Page is inside an iframe
+                const allowedDomain = 'drifted.com';
+                const parentHost = new URL(document.referrer).hostname;
+
+                if (parentHost.endsWith(allowedDomain)) {
+                    document.getElementById('game-footer')?.style.setProperty('display', 'none', 'important');
+                }
+            }
+        } catch (e) {
+            // Cross-origin access blocked, do nothing or handle safely
+        }
     </script>
 </body> 
 </html> 

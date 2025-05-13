@@ -1,26 +1,57 @@
-
 <!DOCTYPE html>
 
 <html>
 	<head>
 		<link rel="manifest" href="manifest.json" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+        <link id="main-css" rel="stylesheet" href="https://dev.drifted.com/wp-content/themes/drifted/game-loader/game-loader.css" onerror="loadFallbackCSS()">
+        <script>
+            function loadFallbackCSS() {
+                var fallback = document.createElement('link');
+                fallback.rel = 'stylesheet';
+                fallback.href = 'https://www.drifted.com/wp-content/themes/drifted/game-loader/game-loader.css';
+                document.head.appendChild(fallback);
+            }
+        </script>
 	</head>
 	<body>
-		<canvas id="screen"></canvas>
-		<div id="ui"></div>
-		<div id="transition-layer"></div>
-<!--
-		<script type="module" src="main.bundle.js" defer></script>
--->
-<script>
-    const script = document.createElement("script");
-    script.type = "module";
-    script.src = "main.bundle.js?v=" + new Date().getTime();
-    script.defer = true;
-    document.body.appendChild(script);
-</script>
+		<div id="gameContainer">
+            <canvas id="screen"></canvas>
+            <div id="ui"></div>
+            <div id="transition-layer"></div>
+        </div>
+        <div id="game-footer">
+            <a class="webgl-logo" href="https://www.drifted.com"></a>
+            <a class="bug tooltip" href="https://www.drifted.com/contact/?game-referral=https://www.drifted.com/polytrack/"></a>
+            <a class="category drifting-games tooltip" href="https://www.drifted.com/car-games/"></a>
+            <a class="fullscreen tooltip" href="https://www.drifted.com/polytrack/"></a>
+            <a class="title" href="https://www.drifted.com/polytrack/">Polytrack</a>
+        </div>
+        <!--
+                <script type="module" src="main.bundle.js" defer></script>
+        -->
+        <script>
+            const script = document.createElement("script");
+            script.type = "module";
+            script.src = "main.bundle.js?v=" + new Date().getTime();
+            script.defer = true;
+            document.body.appendChild(script);
+        </script>
+        <script>
+            try {
+                if (window !== window.parent) {
+                    // Page is inside an iframe
+                    const allowedDomain = 'drifted.com';
+                    const parentHost = new URL(document.referrer).hostname;
 
+                    if (parentHost.endsWith(allowedDomain)) {
+                        document.getElementById('game-footer')?.style.setProperty('display', 'none', 'important');
+                    }
+                }
+            } catch (e) {
+                // Cross-origin access blocked, do nothing or handle safely
+            }
+        </script>
+        <script defer src="htmlgame.js" type="text/javascript"></script>
 	</body>
 </html>
-<script defer src="htmlgame.js" type="text/javascript"></script>
