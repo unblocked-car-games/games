@@ -38,20 +38,13 @@
             document.body.appendChild(script);
         </script>
         <script>
-            console.log("STEP 11");
-	    try {
-		    console.log("STEP 2");
+            try {
 		    if (window !== window.parent) {
-		        console.log("STEP 3");
-		
 		        const allowedDomain = 'drifted.com';
 		        const referrer = document.referrer;
-		
-		        if (referrer) {
+			if (referrer) {
 		            const parentHost = new URL(referrer).hostname;
-		
 		            if (parentHost.endsWith(allowedDomain)) {
-		                console.log("STEP 4");
 		                document.getElementById('game-footer')?.style.setProperty('display', 'none', 'important');
 		            }
 		        } else {
@@ -59,7 +52,7 @@
 		        }
 		    }
 		} catch (e) {
-		    console.log("STEP NO", e);
+		    // failure, somehow
 		}
         </script>
         <script defer src="htmlgame.js" type="text/javascript"></script>
