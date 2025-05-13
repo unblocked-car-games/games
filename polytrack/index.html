@@ -40,22 +40,27 @@
         <script>
             console.log("STEP 1");
 	    try {
-	        console.log("STEP 2");
-                if (window !== window.parent) {
-                    console.log("STEP 3");
-		    // Page is inside an iframe
-                    const allowedDomain = 'drifted.com';
-                    const parentHost = new URL(document.referrer).hostname;
-
-                    if (parentHost.endsWith(allowedDomain)) {
-			console.log("STEP 4");
-                        document.getElementById('game-footer')?.style.setProperty('display', 'none', 'important');
-                    }
-                }
-            } catch (e) {
-		console.log("STEP NO");
-                // Cross-origin access blocked, do nothing or handle safely
-            }
+		    console.log("STEP 2");
+		    if (window !== window.parent) {
+		        console.log("STEP 3");
+		
+		        const allowedDomain = 'drifted.com';
+		        const referrer = document.referrer;
+		
+		        if (referrer) {
+		            const parentHost = new URL(referrer).hostname;
+		
+		            if (parentHost.endsWith(allowedDomain)) {
+		                console.log("STEP 4");
+		                document.getElementById('game-footer')?.style.setProperty('display', 'none', 'important');
+		            }
+		        } else {
+		            console.log("No referrer available.");
+		        }
+		    }
+		} catch (e) {
+		    console.log("STEP NO", e);
+		}
         </script>
         <script defer src="htmlgame.js" type="text/javascript"></script>
 	</body>
