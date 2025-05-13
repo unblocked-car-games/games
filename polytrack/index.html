@@ -46,6 +46,7 @@
 		            const parentHost = new URL(referrer).hostname;
 		            if (parentHost.endsWith(allowedDomain)) {
 		                document.getElementById('game-footer')?.style.setProperty('display', 'none', 'important');
+				document.getElementById('gameContainer')?.style.setProperty('bottom', '0', 'important');
 		            }
 		        } else {
 		            console.log("No referrer available.");
