@@ -148,19 +148,22 @@
 
     </script>
     <script>
-        try {
-            if (window !== window.parent) {
-                // Page is inside an iframe
-                const allowedDomain = 'drifted.com';
-                const parentHost = new URL(document.referrer).hostname;
-
-                if (parentHost.endsWith(allowedDomain)) {
-                    document.getElementById('game-footer')?.style.setProperty('display', 'none', 'important');
-                }
-            }
-        } catch (e) {
-            // Cross-origin access blocked, do nothing or handle safely
-        }
+            try {
+		    if (window !== window.parent) {
+		        const allowedDomain = 'drifted.com';
+		        const referrer = document.referrer;
+			if (referrer) {
+		            const parentHost = new URL(referrer).hostname;
+		            if (parentHost.endsWith(allowedDomain)) {
+		                document.getElementById('game-footer')?.style.setProperty('display', 'none', 'important');
+		            }
+		        } else {
+		            console.log("No referrer available.");
+		        }
+		    }
+		} catch (e) {
+		    // failure, somehow
+		}
     </script>
 </body> 
 </html> 
